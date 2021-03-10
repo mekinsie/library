@@ -41,4 +41,9 @@ class Book
     Book.new({title: title, genre: genre, id: id})
   end
 
+
+  def update(attributes)
+    
+  end
+
 end

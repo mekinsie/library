@@ -41,4 +41,21 @@ end
     end
   end
 
+  describe('#update') do
+    it('should update a book title') do
+    book1 = Book.new({:title => "Sapiens", :genre => "non-fiction", :id => nil})
+    book1.save()
+    book1.update({:title => "Homo Sapiens"})
+    expect(book1.title).to(eq("Homo Sapiens"))
+    end
+
+    it('should update the book title and genre') do
+    book2 = Book.new({:title => "The Road", :genre => "fiction", :id => nil})
+    book2.save()
+    book2.update({:title => "Sapiens", :genre => "non-fiction"})
+    expect(book2.title).to(eq("Sapiens"))
+    expect(book2.genre).to(eq("fiction"))
+    end
+  end
+
 end
