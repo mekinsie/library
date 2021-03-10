@@ -54,7 +54,7 @@ end
     book2.save()
     book2.update({:title => "Sapiens", :genre => "non-fiction"})
     expect(book2.title).to(eq("Sapiens"))
-    expect(book2.genre).to(eq("fiction"))
+    expect(book2.genre).to(eq("non-fiction"))
     end
   end
 

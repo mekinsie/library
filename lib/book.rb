@@ -43,7 +43,14 @@ class Book
 
 
   def update(attributes)
-    
+    if (attributes.has_key?(:title)) && (attributes.fetch(:title) != nil)
+      @title = attributes.fetch(:title)
+      DB.exec("UPDATE books SET title = '#{@title}' WHERE id = #{@id};")
+    end
+    if (attributes.has_key?(:genre)) && (attributes.fetch(:genre) != nil)
+      @genre = attributes.fetch(:genre)
+      DB.exec("UPDATE books SET title = '#{@genre}' WHERE id = #{@id};")
+    end
   end
 
 end
