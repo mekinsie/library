@@ -34,7 +34,11 @@ class Book
   end
 
   def self.find(id)
-
+    book = DB.exec("SELECT * FROM books WHERE id = #{id};").first
+    title = book.fetch("title")
+    genre = book.fetch("genre")
+    id = book.fetch("id")
+    Book.new({title: title, genre: genre, id: id})
   end
 
 end
