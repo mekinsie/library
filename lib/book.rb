@@ -20,9 +20,17 @@ class Book
     books
   end
 
+  def ==(book_to_compare)
+    if book_to_compare != nil
+      (self.title == book_to_compare.title)
+    else
+      false
+    end
+  end
 
-def save
-
-end
+  def save
+    result = DB.exec("INSERT INTO books (title, genre) VALUES ('#{@title}', '#{@genre}') RETURNING id;")
+    @id = result.first.fetch("id").to_i
+  end
 
 end
