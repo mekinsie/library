@@ -1,0 +1,21 @@
+<% if @book != nil%>
+  <h2>Title: <%= @book.title %></h2>
+  <h3>Genre: <%= @book.genre %></h3>
+<br>
+<h3>Edit book:</h3>
+  <form action="/books/<%= @book.id %>" method="post">
+    <input type="hidden" name="_method" value="patch">
+
+    <label for ="title">Edit title:</label>
+    <input id="title" name="title" type="text" value="<%= @book.title %>" required>
+    <br>
+    <label for ="genre">Edit genre:</label>
+    <input id="genre" name="genre" type="text" value="<%= @book.genre %>" required>
+    <br>
+    <button type="submit">Edit book!</button>
+  </form>
+<% else %>
+  <p> This book does not exist.</p>
+<% end %>
+
+<a href="/">Back</a>
