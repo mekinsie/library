@@ -65,7 +65,7 @@ end
     book2 = Book.new({:title => "The Road", :genre => "fiction", :id => nil})
     book2.save()
     book1.delete()
-    expect(Book.all).to(eq(book2))
+    expect(Book.all).to(eq([book2]))
     end
   end
 

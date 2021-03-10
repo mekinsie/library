@@ -55,6 +55,6 @@ class Book
 
 
   def delete
-
+    DB.exec("DELETE FROM books WHERE id = #{@id};")
   end
 end
