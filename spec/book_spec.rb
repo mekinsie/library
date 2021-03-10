@@ -31,4 +31,14 @@ end
   end
 end
 
+  describe('.find') do
+    it('should find a book by id') do
+    book1 = Book.new({:title => "Sapiens", :genre => "non-fiction", :id => nil})
+    book1.save()
+    book2 = Book.new({:title => "The Road", :genre => "fiction", :id => nil})
+    book2.save()
+    expect(Book.find(book1.id)).to(eq(book1))
+    end
+  end
+
 end
