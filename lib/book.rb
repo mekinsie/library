@@ -53,4 +53,8 @@ class Book
     end
   end
 
+
+  def delete
+
+  end
 end

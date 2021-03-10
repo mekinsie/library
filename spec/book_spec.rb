@@ -58,4 +58,16 @@ end
     end
   end
 
+  describe('#delete') do
+    it('deletes a book') do
+    book1 = Book.new({:title => "Sapiens", :genre => "non-fiction", :id => nil})
+    book1.save()
+    book2 = Book.new({:title => "The Road", :genre => "fiction", :id => nil})
+    book2.save()
+    book1.delete()
+    expect(Book.all).to(eq(book2))
+    end
+  end
+
+
 end
