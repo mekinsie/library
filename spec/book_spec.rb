@@ -11,4 +11,15 @@ describe '#Book' do
     end
   end
 
+
+  describe('#save') do
+    it('should save a new book into the database') do
+    book1 = Book.new({:title => "Sapiens", :genre => "non-fiction", :id => nil})
+    book1.save()
+    book2 = Book.new({:title => "The Road", :genre => "fiction", :id => nil})
+    book2.save()
+    expect(Book.all).to(eq([book1, book2]))
+  end
+end
+
 end
