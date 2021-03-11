@@ -55,7 +55,16 @@ class Book
   end
 
   def authors
-    
+    authors = []
+    results = DB.exec("SELECT author_id FROM authors_books WHERE book_id = #{@id};")
+    results.each() do |result|
+      author_id = results.fetch("author_id").to_i
+      author = DB.exec("SELECT * FROM authors WHERE id = #{author_id};")
+      last_name = author.first().fetch("last_name")
+      first_name = author.first().fetch("first_name")
+      authors << (Author.new({:first_name => first_name, :last_name => last_name, :id => author_id}))
+    end
+    authors
   end
 
   # def add_author(author_name)
