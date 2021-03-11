@@ -61,7 +61,8 @@ patch('/books/:id') do
 end
 
 delete('/books/:id')do
-
+  Book.find(params[:id]).delete
+  @books = Book.all
   erb(:books)
 end
 
