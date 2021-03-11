@@ -14,6 +14,33 @@
     <br>
     <button type="submit">Edit book!</button>
   </form>
+
+  <% if @authors != nil%>
+  <ul>
+    <% @authors.each do |author| %>
+      <li><a href="/authors/<%= author.id %>"><%= author.last_name %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are currently no books to display for this author. </p>
+<% end %>
+
+<br>
+<h4>Add an author:</h4>
+<form action="/books/<%= @book.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <div class="form-group">
+    <label for="first_name">First name:</label>
+    <input id="first_name" name="first_name" class="form-control" type="text" placeholder="First name">
+    <label for="last_name">Last name:</label>
+    <input id="last_name" name="last_name" class="form-control" type="text" placeholder="Last name">
+  </div>
+  <button type="submit" class="btn">Add!</button>
+</form>
+
+
+
+
 <% else %>
   <p> This book does not exist.</p>
 <% end %>

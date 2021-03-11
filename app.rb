@@ -44,8 +44,8 @@ patch('/authors/:id') do
     title = params[:title]
     genre = params[:genre]
     @author.add_book({:title => title, :genre => genre})
-    @books = @author.books
   end
+  @books = @author.books
   erb(:author)
 end
 
@@ -73,12 +73,19 @@ end
 
 get('/books/:id') do
   @book = Book.find(params[:id])
+  @authors = @book.authors
   erb(:book)
 end
 
 patch('/books/:id') do
   @book = Book.find(params[:id])
   @book.update({:title => params[:title], :genre => params[:genre]})
+  if params[:first_name] != nil
+    first_name = params[:first_name]
+    last_name = params[:last_name]
+    @book.add_author({:first_name => first_name, :last_name => last_name})
+  end
+  @authors = @book.authors
   erb(:book)
 end
 
