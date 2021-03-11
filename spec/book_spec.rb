@@ -79,17 +79,16 @@ end
     end
   end
 
-  # describe('#add_author') do
-  #   it('should add an author to a book') do
-  #     author1 = Author.new({:first_name => "Noah", :last_name => "Hararri", :id => nil})
-  #     author1.save()
-  #     book1 = Book.new({:title => "Sapiens", :genre => "non-fiction", :id => nil})
-  #     book1.save()
-  #     author_name = "Noah Hararri"
-  #     book1.add_author(author_name)
-  #     expect(book1.authors).to(eq([author1]))
-  #   end
-  # end
+  describe('#add_author') do
+    it('should add an author to a book') do
+      author1 = Author.new({:first_name => "Noah", :last_name => "Hararri", :id => nil})
+      author1.save()
+      book1 = Book.new({:title => "Sapiens", :genre => "non-fiction", :id => nil})
+      book1.save()
+      book1.add_author({:author_first => "Noah", :author_last => "Hararri"})
+      expect(book1.authors).to(eq([author1]))
+    end
+  end
 
 
 
