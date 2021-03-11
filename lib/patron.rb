@@ -20,4 +20,26 @@ class Patron
     patrons
   end
 
+  def ==(patron_to_compare)
+    if patron_to_compare != nil
+      (self.first_name == patron_to_compare.first_name && self.last_name == patron_to_compare.last_name)
+    else
+      false
+    end
+  end
+
+  def save
+    result = DB.exec("INSERT INTO patrons (first_name, last_name) VALUES ('#{@first_name}', '#{@last_name}') RETURNING id;")
+    @id = result.first.fetch("id").to_i
+  end
+
+  def self.find(id)
+    patron = DB.exec("SELECT * FROM patrons WHERE id = #{id};").first
+    if patron != nil
+      first_name = patron.fetch("first_name")
+      last_name = patron.fetch("last_name")
+      id = patron.fetch("id")
+      Patron.new({first_name: first_name, last_name: last_name, id: id})
+    end
+  end
 end
