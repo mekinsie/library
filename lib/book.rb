@@ -54,6 +54,18 @@ class Book
     end
   end
 
+  def authors
+    
+  end
+
+  # def add_author(author_name)
+  #   author = DB.exec("SELECT * FROM authors WHERE lower(name) = '#{author_name.downcase}';").first
+  #   if author != nil
+  #     DB.exec("INSERT INTO authors_books (author_id, book_id) VALUES (#{author['id'].to_i}, #{@id});")
+  #   end
+  # end
+
+
   def delete
     DB.exec("DELETE FROM books WHERE id = #{@id};")
   end
