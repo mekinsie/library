@@ -1,21 +1,21 @@
 <% if @author != nil%>
-  <h2>Title: <%= @author.title %></h2>
-  <h3>Genre: <%= @author.genre %></h3>
+  <h2><%= @author.first_name %> <%= @author.last_name %></h2>
 <br>
 <h3>Edit author:</h3>
   <form action="/authors/<%= @author.id %>" method="post">
     <input type="hidden" name="_method" value="patch">
 
-    <label for ="title">Edit title:</label>
-    <input id="title" name="title" type="text" value="<%= @author.title %>" required>
+    <label for ="first_name">Edit first name:</label>
+    <input id="first_name" name="first_name" type="text" value="<%= @author.first_name %>" required>
     <br>
-    <label for ="genre">Edit genre:</label>
-    <input id="genre" name="genre" type="text" value="<%= @author.genre %>" required>
+    <label for ="last_name">Edit last name:</label>
+    <input id="last_name" name="last_name" type="text" value="<%= @author.last_name %>" required>
     <br>
     <button type="submit">Edit author!</button>
   </form>
 <% else %>
   <p> This author does not exist.</p>
 <% end %>
-
-<a href="/">Back</a>
+<br>
+<a href="/authors">Back</a><br>
+<a href="/">Home</a>

@@ -31,6 +31,12 @@ get('/authors/:id') do
 end
 
 
+patch('/authors/:id') do
+  @author = Author.find(params[:id])
+  @author.update({:last_name => params[:last_name], :first_name => params[:first_name]})
+  erb(:author)
+end
+
 get('/books') do
   @books = Book.all
   erb(:books)
@@ -55,6 +61,7 @@ patch('/books/:id') do
 end
 
 delete('/books/:id')do
+
   erb(:books)
 end
 
