@@ -69,4 +69,22 @@ describe '#Author' do
     end
   end
 
+  describe('#books') do
+    it("should return an empty array if no books belong to the author") do
+      author1 = Author.new({:first_name => "Noah", :last_name => "Hararri", :id => nil})
+      author1.save()
+      expect(author1.books).to(eq([]))
+    end
+  end
+
+  describe('#add_book') do
+    it('should add an a book to an author') do
+      author1 = Author.new({:first_name => "Noah", :last_name => "Hararri", :id => nil})
+      author1.save()
+      book1 = Book.new({:title => "Sapiens", :genre => "non-fiction", :id => nil})
+      book1.save()
+      author1.add_book({:title => "Sapiens", :genre => "non-fiction"})
+      expect(author1.books).to(eq([book1]))
+    end
+  end
 end
