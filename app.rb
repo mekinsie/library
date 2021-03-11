@@ -2,6 +2,7 @@ require('sinatra')
 require('sinatra/reloader')
 require('./lib/book')
 require('./lib/author')
+require('./lib/patron')
 require('pry')
 require('pg')
 also_reload('lib/**/*.rb')
@@ -12,6 +13,10 @@ get('/')do
 
   erb(:home)
 end
+
+#=========
+#Authors
+#=========
 
 get('/authors') do
   @authors = Author.all
@@ -27,6 +32,7 @@ end
 
 get('/authors/:id') do
   @author = Author.find(params[:id])
+  @books = @author.books
   erb(:author)
 end
 
@@ -34,6 +40,12 @@ end
 patch('/authors/:id') do
   @author = Author.find(params[:id])
   @author.update({:last_name => params[:last_name], :first_name => params[:first_name]})
+  if params[:title] != nil
+    title = params[:title]
+    genre = params[:genre]
+    @author.add_book({:title => title, :genre => genre})
+    @books = @author.books
+  end
   erb(:author)
 end
 
@@ -42,6 +54,10 @@ delete('/authors/:id')do
   @authors = Author.all
   erb(:authors)
 end
+
+#=========
+#Books
+#=========
 
 get('/books') do
   @books = Book.all
@@ -75,4 +91,37 @@ end
 get('/books/:id/author') do
   # @book = Book.find(params[:id])
   erb(:author)
+end
+
+#=========
+#Patrons
+#=========
+
+get('/patrons') do
+  @patrons = Patron.all
+  erb(:patrons)
+end
+
+post('/patrons') do
+  patron = Patron.new({:first_name => params[:first_name], :last_name => params[:last_name], :id => nil})
+  patron.save
+  @patrons = Patron.all
+  erb(:patrons)
+end
+
+get('/patrons/:id') do
+  @patron = Patron.find(params[:id])
+  erb(:patron)
+end
+
+patch('/patrons/:id') do
+  @patron = Patron.find(params[:id])
+  @patron.update({:last_name => params[:last_name], :first_name => params[:first_name]})
+  erb(:patron)
+end
+
+delete('/patrons/:id')do
+  Patron.find(params[:id]).delete
+  @patrons = Author.all
+  erb(:patrons)
 end

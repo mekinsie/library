@@ -13,15 +13,39 @@
     <br>
     <button type="submit">Edit author!</button>
   </form>
+  <form action="/authors/<%= @author.id %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <button type="submit">Delete author</button>
+  </form>
+  <br>
+  <% if @books != nil%>
+  <ul>
+    <% @books.each do |book| %>
+      <li><a href="/books/<%= book.id %>"><%= book.title %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are currently no books to display for this author. </p>
+<% end %>
+
+<br>
+<h4>Add author's book:</h4>
+<form action="/authors/<%= @author.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input id="title" name="title" class="form-control" type="text" placeholder="Title">
+    <label for="genre">Genre:</label>
+    <input id="genre" name="genre" class="form-control" type="text" placeholder="Genre">
+  </div>
+  <button type="submit" class="btn">Add!</button>
+</form>
+<br>
 <% else %>
   <p> This author does not exist.</p>
 <% end %>
 <br>
 
-<form action="/authors/<%= @author.id %>" method="post">
-  <input type="hidden" name="_method" value="delete">
-  <button type="submit">Delete author</button>
-</form>
 
 <br>
 <a href="/authors">Back</a><br>

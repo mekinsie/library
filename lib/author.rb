@@ -59,9 +59,9 @@ class Author
     results = DB.exec("SELECT book_id FROM authors_books WHERE author_id = #{@id};")
     results.each() do |result|
       book_id = result.fetch("book_id").to_i()
-      book = DB.exec("SELECT * FROM books WHERE id = #{book_id};")
-      title = book.first().fetch("title")
-      genre = book.first().fetch("genre")
+      book = DB.exec("SELECT * FROM books WHERE id = #{book_id};").first
+      title = book.fetch("title")
+      genre = book.fetch("genre")
       books << (Book.new({:title => title, :genre => genre, :id => book_id}))
     end
     books
@@ -78,5 +78,6 @@ class Author
 
   def delete
     DB.exec("DELETE FROM authors WHERE id = #{@id};")
+    DB.exec("DELETE FROM authors_books WHERE author_id = #{@id};")
   end
 end
