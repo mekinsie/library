@@ -37,6 +37,12 @@ patch('/authors/:id') do
   erb(:author)
 end
 
+delete('/authors/:id')do
+  Author.find(params[:id]).delete
+  @authors = Author.all
+  erb(:authors)
+end
+
 get('/books') do
   @books = Book.all
   erb(:books)

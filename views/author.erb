@@ -17,5 +17,12 @@
   <p> This author does not exist.</p>
 <% end %>
 <br>
+
+<form action="/authors/<%= @author.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit">Delete author</button>
+</form>
+
+
 <a href="/authors">Back</a><br>
 <a href="/">Home</a>
