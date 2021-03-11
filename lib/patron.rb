@@ -42,4 +42,28 @@ class Patron
       Patron.new({first_name: first_name, last_name: last_name, id: id})
     end
   end
+
+  def update(attributes)
+    if (attributes.has_key?(:first_name)) && (attributes.fetch(:first_name) != nil)
+      @first_name = attributes.fetch(:first_name)
+      DB.exec("UPDATE patrons SET first_name = '#{@first_name}' WHERE id = #{@id};")
+    end
+    if (attributes.has_key?(:last_name)) && (attributes.fetch(:last_name) != nil)
+      @last_name = attributes.fetch(:last_name)
+      DB.exec("UPDATE patrons SET last_name = '#{@last_name}' WHERE id = #{@id};")
+    end
+  end
+
+  # def add_book(book_info)
+  #   @title = book_info.fetch(:title)
+  #   @genre = book_info.fetch(:genre)
+  #   book = DB.exec("SELECT * FROM books WHERE (lower(title) = '#{@title.downcase}' AND lower(genre) = '#{@genre.downcase}');").first
+  #   if book != nil
+  #     DB.exec("INSERT INTO patrons_books (book_id, patron_id) VALUES (#{book['id'].to_i}, #{@id});")
+  #   end
+  # end
+
+  def delete
+    DB.exec("DELETE FROM patrons WHERE id = #{@id};")
+  end
 end

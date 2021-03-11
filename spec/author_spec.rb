@@ -45,8 +45,8 @@ describe '#Author' do
     it('should update a author first_name') do
     author1 = Author.new({:first_name => "Noah", :last_name => "Harrari", :id => nil})
     author1.save()
-    author1.update({:first_name => "Homo Noah"})
-    expect(author1.first_name).to(eq("Homo Noah"))
+    author1.update({:first_name => "Yuval"})
+    expect(author1.first_name).to(eq("Yuval"))
     end
 
     it('should update the author first_name and last_name') do
