@@ -35,12 +35,13 @@ class Book
 
   def self.find(id)
     book = DB.exec("SELECT * FROM books WHERE id = #{id};").first
-    title = book.fetch("title")
-    genre = book.fetch("genre")
-    id = book.fetch("id")
-    Book.new({title: title, genre: genre, id: id})
+    if book != nil
+      title = book.fetch("title")
+      genre = book.fetch("genre")
+      id = book.fetch("id")
+      Book.new({title: title, genre: genre, id: id})
+    end
   end
-
 
   def update(attributes)
     if (attributes.has_key?(:title)) && (attributes.fetch(:title) != nil)
@@ -49,10 +50,9 @@ class Book
     end
     if (attributes.has_key?(:genre)) && (attributes.fetch(:genre) != nil)
       @genre = attributes.fetch(:genre)
-      DB.exec("UPDATE books SET title = '#{@genre}' WHERE id = #{@id};")
+      DB.exec("UPDATE books SET genre = '#{@genre}' WHERE id = #{@id};")
     end
   end
-
 
   def delete
     DB.exec("DELETE FROM books WHERE id = #{@id};")
