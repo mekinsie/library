@@ -1,6 +1,7 @@
 require('sinatra')
 require('sinatra/reloader')
 require('./lib/book')
+require('./lib/author')
 require('pry')
 require('pg')
 also_reload('lib/**/*.rb')
@@ -8,8 +9,27 @@ DB = PG.connect({:dbname => "library", :password => 'bean'})
 
 
 get('/')do
-  redirect to ('/books')
+
+  erb(:home)
 end
+
+get('/authors') do
+  @authors = Author.all
+  erb(:authors)
+end
+
+post('/authors') do
+  author = Author.new({:first_name => params[:first_name], :last_name => params[:last_name], :id => nil})
+  author.save
+  @authors = Author.all
+  erb(:authors)
+end
+
+get('/authors/:id') do
+  @author = Author.find(params[:id])
+  erb(:author)
+end
+
 
 get('/books') do
   @books = Book.all
@@ -36,4 +56,9 @@ end
 
 delete('/books/:id')do
   erb(:books)
+end
+
+get('/books/:id/author') do
+  # @book = Book.find(params[:id])
+  erb(:author)
 end
