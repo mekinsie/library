@@ -85,7 +85,7 @@ end
       author1.save()
       book1 = Book.new({:title => "Sapiens", :genre => "non-fiction", :id => nil})
       book1.save()
-      book1.add_author({:author_first => "Noah", :author_last => "Hararri"})
+      book1.add_author({:first_name => "Noah", :last_name => "Hararri"})
       expect(book1.authors).to(eq([author1]))
     end
   end

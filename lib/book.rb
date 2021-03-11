@@ -58,7 +58,7 @@ class Book
     authors = []
     results = DB.exec("SELECT author_id FROM authors_books WHERE book_id = #{@id};")
     results.each() do |result|
-      author_id = results.fetch("author_id").to_i
+      author_id = result.fetch("author_id").to_i()
       author = DB.exec("SELECT * FROM authors WHERE id = #{author_id};")
       last_name = author.first().fetch("last_name")
       first_name = author.first().fetch("first_name")
@@ -68,10 +68,12 @@ class Book
   end
 
   def add_author(author_name)
-    # author = DB.exec("SELECT * FROM authors WHERE lower(name) = '#{author_name.downcase}';").first
-    # if author != nil
-    #   DB.exec("INSERT INTO authors_books (author_id, book_id) VALUES (#{author['id'].to_i}, #{@id});")
-    # end
+    @first_name = author_name.fetch(:first_name)
+    @last_name = author_name.fetch(:last_name)
+    author = DB.exec("SELECT * FROM authors WHERE (lower(first_name) = '#{@first_name.downcase}' AND lower(last_name) = '#{@last_name.downcase}');").first
+    if author != nil
+      DB.exec("INSERT INTO authors_books (author_id, book_id) VALUES (#{author['id'].to_i}, #{@id});")
+    end
   end
 
 
