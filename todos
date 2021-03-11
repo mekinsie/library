@@ -1,0 +1,10 @@
+1. incorporate authors_books join table
+2. incorporate a books_authors join table
+3. incorporate patrons
+4. incorporate a checkout join table
+5. add views for authors
+6. add views for patrons
+7. add search views
+8. make page look purty
+9. add CRUD in app.rb for authors
+10. add CRUD in app.rb for patrons
