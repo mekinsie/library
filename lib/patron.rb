@@ -54,14 +54,27 @@ class Patron
     end
   end
 
-  # def add_book(book_info)
-  #   @title = book_info.fetch(:title)
-  #   @genre = book_info.fetch(:genre)
-  #   book = DB.exec("SELECT * FROM books WHERE (lower(title) = '#{@title.downcase}' AND lower(genre) = '#{@genre.downcase}');").first
-  #   if book != nil
-  #     DB.exec("INSERT INTO patrons_books (book_id, patron_id) VALUES (#{book['id'].to_i}, #{@id});")
-  #   end
-  # end
+  def checkouts
+    checkouts = []
+    books_out = DB.exec("SELECT book_id FROM checkouts WHERE patron_id = #{@id};")
+    books_out.each() do |result|
+      book_id = result.fetch("book_id").to_i()
+      book = DB.exec("SELECT * FROM books WHERE id = #{book_id};")
+      title = book.first().fetch("title")
+      genre = book.first().fetch("genre")
+      checkouts << (Book.new({:title => title, :genre => genre, :id => book_id}))
+    end
+    checkouts
+  end
+
+  def checkout_book(book_info)
+    @title = book_info.fetch(:title)
+    @genre = book_info.fetch(:genre)
+    book = DB.exec("SELECT * FROM books WHERE (lower(title) = '#{@title.downcase}' AND lower(genre) = '#{@genre.downcase}');").first
+    if book != nil
+      DB.exec("INSERT INTO checkouts (book_id, patron_id, checkout_date, return_date) VALUES (#{book['id'].to_i}, #{@id}, CURRENT_DATE, CURRENT_DATE + INTERVAL '14 day');")
+    end
+  end
 
   def delete
     DB.exec("DELETE FROM patrons WHERE id = #{@id};")

@@ -63,4 +63,26 @@ describe '#Patron' do
     expect(Patron.all).to(eq([patron2]))
     end
   end
+
+  describe('#checkout_book') do
+    it("checks out a book") do
+      patron1 = Patron.new({:first_name => "Stephanie", :last_name => "Meyer", :id => nil})
+      patron1.save()
+      book1 = Book.new({:title => "Sapiens", :genre => "non-fiction", :id => nil})
+      book1.save()
+      patron1.checkout_book({:title => "Sapiens", :genre => "non-fiction"})
+      expect(patron1.checkouts).to(eq([book1]))
+    end
+  end
+
+  describe("#checkouts")do
+    it("returns an empty array when a patron has no books checked out") do
+      patron1 = Patron.new({:first_name => "Stephanie", :last_name => "Meyer", :id => nil})
+      patron1.save()
+      expect(patron1.checkouts).to(eq([]))
+    end
+  end
+
+
+
 end
