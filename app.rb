@@ -86,6 +86,11 @@ patch('/books/:id') do
     @book.add_author({:first_name => first_name, :last_name => last_name})
   end
   @authors = @book.authors
+  if params[:patron_last] != nil
+    patron_first = params[:patron_first]
+    patron_last = params[:patron_last]
+    @book.add_patron({:first_name => first_name, :last_name => last_name})
+  end
   erb(:book)
 end
 

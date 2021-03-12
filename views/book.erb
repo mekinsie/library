@@ -39,6 +39,17 @@
 </form>
 
 
+<h4>Checkout Book:</h4>
+<form action="/books/<%= @book.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <div class="form-group">
+    <label for="patron_first">Patron First Name:</label>
+    <input id="patron_first" name="patron_first" class="form-control" type="text" placeholder="First name">
+    <label for="patron_last">Patron Last name:</label>
+    <input id="patron_last" name="patron_last" class="form-control" type="text" placeholder="Last name">
+  </div>
+  <button type="submit" class="btn">Checkout book!</button>
+</form>
 
 
 <% else %>
