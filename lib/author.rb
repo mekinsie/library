@@ -54,7 +54,30 @@ class Author
     end
   end
 
+  def books
+    books = []
+    results = DB.exec("SELECT book_id FROM authors_books WHERE author_id = #{@id};")
+    results.each() do |result|
+      book_id = result.fetch("book_id").to_i()
+      book = DB.exec("SELECT * FROM books WHERE id = #{book_id};").first
+      title = book.fetch("title")
+      genre = book.fetch("genre")
+      books << (Book.new({:title => title, :genre => genre, :id => book_id}))
+    end
+    books
+  end
+
+  def add_book(book_info)
+    @title = book_info.fetch(:title)
+    @genre = book_info.fetch(:genre)
+    book = DB.exec("SELECT * FROM books WHERE (lower(title) = '#{@title.downcase}' AND lower(genre) = '#{@genre.downcase}');").first
+    if book != nil
+      DB.exec("INSERT INTO authors_books (book_id, author_id) VALUES (#{book['id'].to_i}, #{@id});")
+    end
+  end
+
   def delete
     DB.exec("DELETE FROM authors WHERE id = #{@id};")
+    DB.exec("DELETE FROM authors_books WHERE author_id = #{@id};")
   end
 end

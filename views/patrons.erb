@@ -1,0 +1,26 @@
+<h2>Patrons:</h2>
+
+<% if @patrons.any? %>
+  <ul>
+    <% @patrons.each do |patron| %>
+      <li><a href="/patrons/<%= patron.id %>"><%= patron.first_name %> <%= patron.last_name%></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are currently no patrons to display. </p>
+<% end %>
+
+<br>
+
+<h4>Add a new patron!</h4>
+<form action="/patrons" method="post">
+  <div class="form-group">
+    <label for="first_name">First name:</label>
+    <input id="first_name" name="first_name" class="form-control" type="text" placeholder="First name">
+    <label for="last_name">Last name:</label>
+    <input id="last_name" name="last_name" class="form-control" type="text" placeholder="Last name">
+  </div>
+  <button type="submit" class="btn">Add!</button>
+</form>
+<br>
+<a href="/">Back</a>

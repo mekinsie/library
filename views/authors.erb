@@ -1,0 +1,26 @@
+<h2>Authors:</h2>
+
+<% if @authors.any? %>
+  <ul>
+    <% @authors.each do |author| %>
+      <li><a href="/authors/<%= author.id %>"><%= author.first_name %> <%= author.last_name%></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are currently no authors to display. </p>
+<% end %>
+
+<br>
+
+<h4>Add a new author!</h4>
+<form action="/authors" method="post">
+  <div class="form-group">
+    <label for="first_name">First name:</label>
+    <input id="first_name" name="first_name" class="form-control" type="text" placeholder="First name">
+    <label for="last_name">Last name:</label>
+    <input id="last_name" name="last_name" class="form-control" type="text" placeholder="Last name">
+  </div>
+  <button type="submit" class="btn">Add!</button>
+</form>
+<br>
+<a href="/">Back</a>

@@ -1,0 +1,12 @@
+X. incorporate authors_books join table
+X. incorporate a books_authors join table
+X. incorporate patrons
+X. incorporate a checkout join table
+X. add views for authors
+X. add views for patrons
+7. add search views
+8. make page look purty
+X. add CRUD in app.rb for authors
+X. add CRUD in app.rb for patrons
+
+add method to show checkout and return dates?
